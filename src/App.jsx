@@ -1,13 +1,22 @@
-import { useState } from "react";
+import useTasks from "./hooks/useTasks";
 import TaskList from "./components/TaskList";
 import NewTaskForm from "./components/NewTaskForm";
 import Footer from "./components/Footer";
+import { useState } from "react";
 
 import "./App.css";
 
 function App() {
   const [filter, setFilter] = useState("all");
-  const [tasks, setTasks] = useState([
+  const {
+    tasks,
+    addTask,
+    toggleCompleted,
+    deleteTask,
+    deleteAllCompleted,
+    editTask,
+    saveEditTask,
+  } = useTasks([
     {
       id: 1,
       title: "Completed task",
@@ -35,52 +44,7 @@ function App() {
     if (filter === "completed") return task.completed;
     return true;
   });
-  const toggleCompleted = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
 
-  const deleteTask = (id) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  };
-
-  const editTask = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id
-          ? { ...task, editing: true }
-          : { ...task, editing: false }
-      )
-    );
-  };
-
-  const saveEditTask = (id, newTitle) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, title: newTitle, editing: false } : task
-      )
-    );
-  };
-
-  const addTask = (title) => {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      {
-        id: Math.round(Math.random() * 100000),
-        title,
-        completed: false,
-        editing: false,
-        createdAt: new Date(),
-      },
-    ]);
-  };
-
-  const deleteAllCompleted = () => {
-    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
-  };
   const activeCount = tasks.filter((task) => !task.completed).length;
 
   return (
