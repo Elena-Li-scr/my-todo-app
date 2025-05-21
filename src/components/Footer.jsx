@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import TasksFilter from "./TasksFilter";
 
 function Footer({ filter, setFilter, onDelete, activeCount }) {
@@ -13,5 +14,16 @@ function Footer({ filter, setFilter, onDelete, activeCount }) {
     </footer>
   );
 }
+
+Footer.propTypes = {
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  activeCount: PropTypes.number.isRequired,
+};
+
+Footer.defaultProps = {
+  onDelete: () => {},
+};
 
 export default Footer;

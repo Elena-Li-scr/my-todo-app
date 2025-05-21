@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 function NewTaskForm({ onNew }) {
   const [text, setText] = useState("");
@@ -19,5 +20,13 @@ function NewTaskForm({ onNew }) {
     ></input>
   );
 }
+
+NewTaskForm.propTypes = {
+  onNew: PropTypes.func.isRequired,
+};
+
+NewTaskForm.defaultProps = {
+  onNew: () => {},
+};
 
 export default NewTaskForm;

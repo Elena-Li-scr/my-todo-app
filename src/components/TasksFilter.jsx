@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 function TasksFilter({ filter, setFilter }) {
   return (
     <ul className="filters">
@@ -29,4 +30,8 @@ function TasksFilter({ filter, setFilter }) {
   );
 }
 
+TasksFilter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
+};
 export default TasksFilter;

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
+import PropTypes from "prop-types";
 function Task({
   id,
   title,
@@ -8,6 +10,7 @@ function Task({
   onDelete,
   onEdit,
   onSaveEdit,
+  createdAt,
 }) {
   const [editText, setEditText] = useState(title);
   let className = "";
@@ -31,7 +34,13 @@ function Task({
         />
         <label>
           <span className="description">{title}</span>
-          {/* <span class="created">created 5 minutes ago</span> */}
+          <span className="created">
+            created{" "}
+            {formatDistanceToNow(new Date(createdAt), {
+              addSuffix: true,
+              includeSeconds: true,
+            })}
+          </span>
         </label>
         <button className="icon icon-edit" onClick={() => onEdit(id)}></button>
         <button
@@ -52,4 +61,26 @@ function Task({
   );
 }
 
+Task.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  title: PropTypes.string,
+  completed: PropTypes.bool,
+  editing: PropTypes.bool,
+  createdAt: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+    .isRequired,
+  onToggle: PropTypes.func,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
+  onSaveEdit: PropTypes.func,
+};
+
+Task.defaultProps = {
+  title: "",
+  completed: false,
+  editing: false,
+  onToggle: () => {},
+  onDelete: () => {},
+  onEdit: () => {},
+  onSaveEdit: () => {},
+};
 export default Task;
