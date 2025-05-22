@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-function TasksFilter({ filter, setFilter }) {
+function TasksFilter({ filter, setFilter, edit }) {
   return (
     <ul className="filters">
       <li>
         <button
           className={filter === "all" ? "selected" : ""}
-          onClick={() => setFilter("all")}
+          onClick={edit === 0 ? () => setFilter("all") : undefined}
         >
           All
         </button>
@@ -13,7 +13,7 @@ function TasksFilter({ filter, setFilter }) {
       <li>
         <button
           className={filter === "active" ? "selected" : ""}
-          onClick={() => setFilter("active")}
+          onClick={edit === 0 ? () => setFilter("active") : undefined}
         >
           Active
         </button>
@@ -21,7 +21,7 @@ function TasksFilter({ filter, setFilter }) {
       <li>
         <button
           className={filter === "completed" ? "selected" : ""}
-          onClick={() => setFilter("completed")}
+          onClick={edit === 0 ? () => setFilter("completed") : undefined}
         >
           Completed
         </button>
@@ -33,5 +33,6 @@ function TasksFilter({ filter, setFilter }) {
 TasksFilter.propTypes = {
   filter: PropTypes.string.isRequired,
   setFilter: PropTypes.func.isRequired,
+  edit: PropTypes.number.isRequired,
 };
 export default TasksFilter;

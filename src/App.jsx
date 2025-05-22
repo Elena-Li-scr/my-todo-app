@@ -46,6 +46,7 @@ function App() {
   });
 
   const activeCount = tasks.filter((task) => !task.completed).length;
+  const edit = tasks.filter((task) => task.editing).length;
 
   return (
     <>
@@ -67,6 +68,7 @@ function App() {
             setFilter={setFilter}
             onDelete={deleteAllCompleted}
             activeCount={activeCount}
+            edit={edit}
           />
         </section>
       </section>
